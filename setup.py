@@ -11,5 +11,6 @@ setup(
     url="https://github.com/CJWorkbench/upload",
     packages=[""],
     py_modules=["upload"],
-    install_requires=["cjwparse"],
+    install_requires=["cjwparse~=0.0.2", "cjwmodule~=1.4.2"],
+    extras_require={"tests": ["pytest~=5.3.0"]},
 )

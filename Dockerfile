@@ -10,19 +10,14 @@ COPY --from=arrow-tools /usr/bin/xlsx-to-arrow /usr/bin/xlsx-to-arrow
 
 RUN pip install black pyflakes isort pytest
 
-# README is read by setup.py
-COPY setup.py README.md /app/
-# __version__ (for setup.py)
-COPY upload.py /app/upload.py
-COPY test_upload.py /app/test_upload.py
-COPY upload.yaml /app/upload.yaml
-COPY locale /app/locale
 WORKDIR /app
-RUN pip install .
+COPY setup.py /app/
+RUN pip install .[tests]
 
 COPY . /app/
 
 RUN true \
       && pyflakes . \
       && black --check . \
+      && isort --check --recursive . \
       && pytest --verbose
